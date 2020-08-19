@@ -1,0 +1,9 @@
+name: Machinery
+version: 1.0
+author: Zeldaboy111
+main: ma.zeldaboy111.Main
+
+commands:
+  factory:
+    usage: /<command>
+    description: Factory command

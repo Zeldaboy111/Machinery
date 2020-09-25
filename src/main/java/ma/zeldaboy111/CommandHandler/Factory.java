@@ -1,5 +1,6 @@
 package ma.zeldaboy111.CommandHandler;
 
+import ma.zeldaboy111.FactoryHandler.StandHandler;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,8 +16,7 @@ public class Factory {
         Player p = (Player)s;
         if(!p.hasPermission("factory.use") && !p.isOp()) return;
 
-        new ma.zeldaboy111.FactoryHandler.Factory(p.getLocation(), Material.OAK_LOG);
-        //new Movement(p, Material.OAK_LOG);
+        StandHandler.instance.newStand(p.getLocation());
 
     }
 

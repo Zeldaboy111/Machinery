@@ -9,8 +9,8 @@ public class Main extends JavaPlugin {
 
     public void onEnable() {
         plugin = (Plugin)this;
-        Bukkit.getServer().getPluginCommand("factory").setExecutor(new Commands());
 
+        Bukkit.getServer().getPluginCommand("factory").setExecutor(new Commands());
     }
 
     public void onDisable() { }

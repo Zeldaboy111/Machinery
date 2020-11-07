@@ -26,8 +26,9 @@ public class Stand {
     }
 
     public ArmorStand getStand() { return stand; }
-    public void moveStand(double xIncrement, double yIncrement, double zIncrement) {
-        stand.teleport(stand.getLocation().clone().add(xIncrement, yIncrement, zIncrement));
+    public void moveStand(Location newLocation) {
+        stand.teleport(newLocation);
     }
     public Location getStandBlockLocation() { return stand.getLocation().getBlock().getLocation().clone(); }
+    public Location getLocation() { return stand.getLocation().clone(); }
 }

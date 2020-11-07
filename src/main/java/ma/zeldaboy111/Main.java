@@ -6,10 +6,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     public static Plugin plugin;
-
+    
+    public static void main(String[] args) { }
     public void onEnable() {
         plugin = (Plugin)this;
 
+        Bukkit.getServer().getPluginManager().registerEvents(new Listener(), this);
         Bukkit.getServer().getPluginCommand("factory").setExecutor(new Commands());
     }
 

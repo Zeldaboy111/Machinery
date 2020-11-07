@@ -11,6 +11,7 @@ public class DirectionData {
         updateData(direction, factoryType);
     }
 
+    public void updateData(DirectionData data) { updateData(data.getDirection(), data.getFactoryType()); }
     public void updateData(int direction, FactoryMaterials factoryType) {
         this.direction = direction;
         this.factoryType = factoryType;

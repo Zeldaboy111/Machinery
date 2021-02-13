@@ -1,6 +1,6 @@
-package ma.zeldaboy111.FactoryHandler;
+package ma.zeldaboy111.machinery.factoryhandler;
 
-import ma.zeldaboy111.FactoryMaterials;
+import ma.zeldaboy111.machinery.FactoryMaterials;
 
 public class DirectionData {
 

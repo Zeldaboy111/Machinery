@@ -1,4 +1,4 @@
-package ma.zeldaboy111;
+package ma.zeldaboy111.machinery;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

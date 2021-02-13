@@ -1,6 +1,6 @@
-package ma.zeldaboy111.FactoryHandler;
+package ma.zeldaboy111.machinery.factoryhandler;
 
-import ma.zeldaboy111.FactoryMaterials;
+import ma.zeldaboy111.machinery.FactoryMaterials;
 import ma.zeldaboy111.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;

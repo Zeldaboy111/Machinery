@@ -8,3 +8,6 @@ commands:
   factory:
     usage: /<command>
     description: Factory command
+  wand:
+    usage: /<command>
+    description: Wand command

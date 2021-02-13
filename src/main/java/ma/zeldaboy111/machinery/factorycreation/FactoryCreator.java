@@ -12,19 +12,34 @@ public class FactoryCreator {
 
     public Boolean clickEvent(Player p, Boolean leftClick) {
         ItemStack stack = p.getInventory().getItemInMainHand();
-        FactoryLayout layout;
-        if(stack == null || stack.getType() == Material.AIR || (layout = checkIfItemIsFactoryItem(stack)) == null) return false;
         int direction = getDirectionFromPlayer(p);
         Location target = getTarget(p, direction);
-        if(leftClick) layout.showParticles(p, target, direction);
-        else if(layout.canBuild(p.getLocation().getYaw(), target)) layout.build(p.getLocation().getYaw(), target, direction);
+        Location isTargetGenerator = getTargetGenerator(target);
+        FactoryItem item = null;
+
+        System.out.println(isTargetGenerator);
+        if((!leftClick || isTargetGenerator != null) && (stack == null || stack.getType() == Material.AIR || (item = checkIfItemIsFactoryItem(stack)) == null)) return false;
+        if(target == null) p.sendMessage("§fFactory§8: §7You cannot build this part here.");
+        else if(leftClick && isTargetGenerator != null) {
+            FactoryManager.getInstance().removeGenerator(isTargetGenerator);
+            return false;
+        }
+        else if(leftClick) item.getLayout().showParticles(p, target, direction);
+        else if(item.getLayout().canBuild(direction, target)) item.getLayout().build(target, direction);
         else p.sendMessage("§fFactory§8: §7You cannot build this part here.");
         return true;
     }
-
-    private FactoryLayout checkIfItemIsFactoryItem(ItemStack stack) {
+    private Location getTargetGenerator(Location target) {
         for(FactoryItem item : FactoryItem.values()) {
-            if(stack.equals(item.getStack())) return item.getLayout();
+            Location loc;
+            if(item.isGenerator() && (loc = item.getLayout().isStructure(target)) != null) return loc;
+        }
+        return null;
+    }
+
+    private FactoryItem checkIfItemIsFactoryItem(ItemStack stack) {
+        for(FactoryItem item : FactoryItem.values()) {
+            if(stack.equals(item.getStack())) return item;
         }
         return null;
     }
@@ -37,17 +52,13 @@ public class FactoryCreator {
     }
 
     private Location getTarget(Player p, int direction) {
-        Location last = null;
-        for(int i = 0; i < 5; i++) {
-            last = p.getLocation().clone().add(direction == 0 ? -i : direction == 2 ? i : 0, 1, direction == 1 ? -i : direction == 3 ? -i : 0);
-            if(last != null && last.getBlock().getType() != Material.AIR && last.getBlock().getType().isSolid()) break;
-        }
-        //BlockIterator iterator = new BlockIterator(p, 5);
-        //Block last = null;
-        //while(iterator.hasNext()) {
-        //    last = iterator.next();
-        //    if(last.getType() != Material.AIR && last.getType().isSolid()) break;
-        //}
-        return last == null ? p.getLocation() : last;
+        Location check = getLocation(p.getLocation(), direction, -1);
+        if(check.getBlock().getType() != Material.AIR && check.getBlock().getType().isSolid()) return getLocation(p.getLocation(), direction, 0);
+        check = getLocation(p.getLocation(), direction, -2);
+        if(check.getBlock().getType() != Material.AIR && check.getBlock().getType().isSolid()) return getLocation(p.getLocation(), direction, -1);
+        return null;
+    }
+    private Location getLocation(Location loc, int direction, int y) {
+        return loc.getBlock().getLocation().clone().add(direction == 3 ? -1 : direction == 1 ? 1 : 0, y, direction == 0 ? -1 : direction == 2 ? 1 : 0);
     }
 }
